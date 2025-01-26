@@ -83,7 +83,7 @@ data class InsertVendorUiState(
 data class InsertVendorUiEvent(
     val id_vendor: Int = 0,
     val nama_vendor: String = "",
-    val jenis_vendor: String = JenisVendor.CATERING.displayNameVendor, // Defaultnya bisa CATERING
+    val jenis_vendor: String = "",
     val kontak_vendor: String = ""
 )
 
