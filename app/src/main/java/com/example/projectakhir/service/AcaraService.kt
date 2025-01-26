@@ -26,7 +26,7 @@ interface AcaraService {
     suspend fun insertAcara(@Body acara: Acara)
 
     // Memperbarui data acara berdasarkan ID
-    @PUT("{acara/{id_acara}")
+    @PUT("acara/{id_acara}")
     suspend fun updateAcara(@Path("id_acara") id_acara: Int, @Body acara: Acara)
 
     // Menghapus acara berdasarkan ID
