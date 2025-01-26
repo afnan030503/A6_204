@@ -7,16 +7,18 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.cmwidget.CustomTopAppBar
+import com.example.projectakhir.cmwidget.JenisVendorRadioButton
+import com.example.projectakhir.cmwidget.SectionCard
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.vendor.InsertVendorUiEvent
 import com.example.projectakhir.viewmodel.vendor.InsertVendorUiState
 import com.example.projectakhir.viewmodel.vendor.InsertViewModelVendor
-import com.example.projectakhir.viewmodel.vendor.JenisVendorRadioButton
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 
@@ -101,28 +103,32 @@ fun FormInputVendor(
         modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        OutlinedTextField(
-            value = insertUiEvent.nama_vendor,
-            onValueChange = { onValueChange(insertUiEvent.copy(nama_vendor = it)) },
-            label = { Text("Nama Vendor") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        JenisVendorRadioButton(
-            selectedJenisVendor = insertUiEvent.jenis_vendor,
-            onJenisVendorChange = { selected ->
-                onValueChange(insertUiEvent.copy(jenis_vendor = selected))
-            }
-        )
-        OutlinedTextField(
-            value = insertUiEvent.kontak_vendor,
-            onValueChange = { onValueChange(insertUiEvent.copy(kontak_vendor = it)) },
-            label = { Text("Kontak Vendor") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
+        SectionCard(title = "Informasi Acara") {
+            OutlinedTextField(
+                value = insertUiEvent.nama_vendor,
+                onValueChange = { onValueChange(insertUiEvent.copy(nama_vendor = it)) },
+                label = { Text("Nama Vendor") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+        }
+        SectionCard(title = "") {
+            JenisVendorRadioButton(
+                selectedJenisVendor = insertUiEvent.jenis_vendor,
+                onJenisVendorChange = { selected ->
+                    onValueChange(insertUiEvent.copy(jenis_vendor = selected))
+                }
+            )
+        }
+            OutlinedTextField(
+                value = insertUiEvent.kontak_vendor,
+                onValueChange = { onValueChange(insertUiEvent.copy(kontak_vendor = it)) },
+                label = { Text("Kontak Vendor") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
 
         if (enabled) {
             Text(
