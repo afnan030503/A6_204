@@ -30,7 +30,7 @@ class DetailViewModelKlien(
     private set
 
     private val _idklien: Int = savedStateHandle[DestinasiDetailKlien.ID_KLIEN]
-        ?: throw IllegalArgumentException("ID_KATEGORI harus disediakan dan berupa angka yang valid")
+        ?: throw IllegalArgumentException("ID_KLIEN harus disediakan dan berupa angka yang valid")
 
 
 

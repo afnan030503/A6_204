@@ -30,7 +30,7 @@ import com.example.projectakhir.model.Klien
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.klien.DetailKlienUiState
 import com.example.projectakhir.viewmodel.klien.DetailViewModelKlien
- 
+
 object DestinasiDetailKlien : DestinasiNavigasi {
     override val route = "detail_klien"
     override val titleRes = "Detail Klien"
@@ -69,7 +69,7 @@ fun DetailViewKlien(
             }
         }
     ) { innerPadding ->
-        DetaiStatuslKlien(
+        DetailStatuslKlien(
             modifier = Modifier.padding(innerPadding),
             detailUiState = viewModel.klienDetailKlienState,
             retryAction = { viewModel.getDetailKlienByid() }
@@ -78,7 +78,7 @@ fun DetailViewKlien(
 }
 
 @Composable
-fun DetaiStatuslKlien(
+fun DetailStatuslKlien(
     modifier: Modifier = Modifier,
     detailUiState: DetailKlienUiState,
     retryAction: () -> Unit = {}
@@ -113,12 +113,16 @@ fun ItemDetailKlien(
     klien: Klien
 ) {
     Card(
-        modifier = modifier.padding(16.dp),
-        shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 12.dp, end = 12.dp, top = 16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 16.dp)
         ) {
             ComponentDetailKlien(judul = "ID Klienn", isinya = klien.id_klien.toString())
             ComponentDetailKlien(judul = "Nama Klien", isinya = klien.nama_klien)
@@ -136,7 +140,7 @@ fun ComponentDetailKlien(
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "$judul :",
@@ -147,7 +151,7 @@ fun ComponentDetailKlien(
         Text(
             text = isinya,
             fontSize = 22.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Light
         )
     }
 }
