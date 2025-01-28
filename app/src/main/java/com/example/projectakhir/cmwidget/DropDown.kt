@@ -2,48 +2,72 @@ package com.example.projectakhir.cmwidget
 
 
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-@OptIn(ExperimentalMaterial3Api::class)
+import androidx.compose.ui.graphics.Color
+
 @Composable
 fun DropDown(
-    label: String,
-    items: List<String>,
-    selectedItem: String,
-    onItemSelected: (Int) -> Unit,
-    expanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit
+    tittle: String,
+    options: List<Int>,
+    selectedOption: Int,
+    onOptionSelected: (Int) -> Unit,
+    isError: Boolean = false,
+    errorMessage: String? = null
 ) {
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = onExpandedChange
-    ) {
+    var expanded by remember { mutableStateOf(false) }
+    var currentSelected by remember { mutableStateOf(selectedOption) }
+
+    Column {
         OutlinedTextField(
-            value = selectedItem,
+            value = currentSelected.toString(),
             onValueChange = {},
-            label = { Text(label) },
             readOnly = true,
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.menuAnchor()
+            label = { Text(text = tittle) },
+            trailingIcon = {
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = null
+                    )
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
         )
-        ExposedDropdownMenu(
+        DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { onExpandedChange(false) }
+            onDismissRequest = { expanded = false }
         ) {
-            items.forEachIndexed { index, item ->
-                androidx.compose.material3.DropdownMenuItem(
-                    text = { Text(label) },
+            options.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(text = option.toString()) },
                     onClick = {
-                        onItemSelected(index)
-                        onExpandedChange(false)
+                        onOptionSelected(option)
+                        currentSelected = option
+                        expanded = false
                     }
                 )
             }
+        }
+        if (isError && errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = Color.Red
+            )
         }
     }
 }
