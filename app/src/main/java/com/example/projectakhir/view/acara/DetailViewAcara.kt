@@ -19,6 +19,7 @@ import com.example.projectakhir.model.Acara
 import com.example.projectakhir.model.Klien
 import com.example.projectakhir.model.Lokasi
 import com.example.projectakhir.navigasi.DestinasiNavigasi
+import com.example.projectakhir.view.klien.ComponentDetailKlien
 import com.example.projectakhir.viewmodel.acara.DetailAcaraUiState
 import com.example.projectakhir.viewmodel.acara.DetailViewModelAcara
 import java.text.SimpleDateFormat
@@ -88,9 +89,7 @@ fun BodyDetailAcara(
                     .padding(17.dp)
             ) {
                 ItemDetailAcara(
-                    acara = detailUiState.acara,
-                    klien = detailUiState.klien,
-                    lokasi = detailUiState.lokasi
+                    acara = detailUiState.acara
                 )
             }
         }
@@ -103,9 +102,7 @@ fun BodyDetailAcara(
 
 @Composable
 fun ItemDetailAcara(
-    acara: Acara,
-    klien: Klien?,
-    lokasi: Lokasi?
+    acara: Acara
 ) {
     // Membuat SimpleDateFormat untuk tanggal
     val dateFormatter = SimpleDateFormat("dd MMMM yyyy", Locale("id", "ID"))
@@ -146,15 +143,9 @@ fun ItemDetailAcara(
             Spacer(modifier = Modifier.padding(5.dp))
             ComponentDetailAcara(judul = "Status Acara", isinya = acara.status_acara)
             Spacer(modifier = Modifier.padding(5.dp))
-            ComponentDetailAcara(
-                judul = "Klien",
-                isinya = (klien?.id_klien ?: "Data klien tidak tersedia").toString()
-            )
-            Spacer(modifier = Modifier.padding(5.dp))
-            ComponentDetailAcara(
-                judul = "Lokasi",
-                isinya = (lokasi?.id_lokasi ?: "Data lokasi tidak tersedia").toString()
-            )
+            ComponentDetailAcara(judul = "Klien", isinya = acara.id_klien.toString())
+            ComponentDetailAcara(judul = "Lokasi", isinya = acara.id_lokasi.toString())
+
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.projectakhir.viewmodel.acara
 
-
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,37 +11,45 @@ import com.example.projectakhir.repository.AcaraRepository
 import com.example.projectakhir.repository.KlienRepository
 import com.example.projectakhir.repository.LokasiRepository
 import com.example.projectakhir.view.acara.DestinasiUpdateAcara
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class UpdateViewModelAcara(
     savedStateHandle: SavedStateHandle,
     private val acaraRepo: AcaraRepository,
-    private val kln: KlienRepository,
-    private val lks: LokasiRepository
+    private val klnRepo: KlienRepository,
+    private val lksRepo: LokasiRepository
 ) : ViewModel() {
 
-    // ID Acara dari SavedStateHandle
-    val idAcara: Int = checkNotNull(savedStateHandle[DestinasiUpdateAcara.route])
+    // ID Acara from SavedStateHandle
+    val id_acara: Int = checkNotNull(savedStateHandle[DestinasiUpdateAcara.ID_ACARA])
 
-    // State untuk menyimpan data UI
+    // State to store UI data
     var uiState = mutableStateOf(InsertAcaraUiState())
         private set
-    var klienList = mutableStateOf<List<Klien>>(emptyList())
+    val lokasiUiState: StateFlow<HomeLokasiUiState> = MutableStateFlow(
+        HomeLokasiUiState(lokasiList = emptyList(), isLoading = true)
+    )
 
-    var lokasiList = mutableStateOf<List<Lokasi>>(emptyList())
-        private set
+
+
+    private val _klienList = MutableStateFlow<List<Klien>>(emptyList())
+    val klienList: StateFlow<List<Klien>> = _klienList
+    private val _lokasiList = MutableStateFlow<List<Lokasi>>(emptyList())
+    val lokasiList: StateFlow<List<Lokasi>> = _lokasiList
 
     init {
         fetchAcaraData()
-        fetchKlien()
-        fetchLokasi()
+        loadKlienList()
+        loadLokasiList()
     }
 
-    // Memuat data Acara berdasarkan ID
+    // Load Acara data by ID
     private fun fetchAcaraData() {
         viewModelScope.launch {
             try {
-                val acara = acaraRepo.getAcaraById(idAcara)
+                val acara = acaraRepo.getAcaraById(id_acara)
                 acara?.let {
                     uiState.value = it.toInsertUIEvent()
                 }
@@ -52,31 +59,30 @@ class UpdateViewModelAcara(
         }
     }
 
-    // Memuat data klien dan lokasi untuk dropdown
-    private fun fetchKlien() {
+    // Load Klien and Lokasi data for dropdown
+    private fun loadKlienList() {
         viewModelScope.launch {
             try {
-                val response = kln.getKlien()
-                klienList.value = response.data
-
+                val response = klnRepo.getKlien()
+                _klienList.value = response.data ?: emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-    private fun fetchLokasi(){
+
+    private fun loadLokasiList() {
         viewModelScope.launch {
             try {
-                val response = lks.getLokasi()
-                lokasiList.value = response.data
-            }catch (e: Exception){
+                val response = lksRepo.getLokasi()
+                _lokasiList.value = response.data ?: emptyList()
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    // Fungsi untuk mengupdate data Acara
-    // Fungsi untuk mengupdate data Acara
+    // Update Acara data
     fun updateAcara(id_acara: Int, acara: Acara) {
         viewModelScope.launch {
             try {
@@ -87,14 +93,18 @@ class UpdateViewModelAcara(
         }
     }
 
-
-    // Fungsi untuk memperbarui state InsertAcaraUiEvent
+    // Update InsertAcaraUiEvent state
     fun updateAcaraState(insertUiEvent: InsertAcaraUiEvent) {
         uiState.value = uiState.value.copy(insertUiEvent = insertUiEvent)
     }
 }
 
-// Extension function untuk mengonversi Acara ke InsertAcaraUiState
+data class HomeLokasiUiState(
+    val lokasiList: List<Lokasi> = emptyList(),
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null
+)
+
 fun Acara.toInsertUIEvent(): InsertAcaraUiState = InsertAcaraUiState(
-    insertUiEvent = InsertAcaraUiEvent()
+    insertUiEvent = this.toInsertAcaraUiEvent()
 )

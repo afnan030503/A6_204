@@ -131,6 +131,8 @@ fun AcaraLayout(
                 id_acara = acara.id_acara,
                 nama_acara = acara.nama_acara,
                 deskripsi_acara = acara.deskripsi_acara,
+                tanggal_mulai = acara.tanggal_mulai,
+                tanggal_berakhir = acara.tanggal_berakhir,
                 id_klien = acara.id_klien,
                 id_lokasi = acara.id_lokasi,
                 status_acara = acara.status_acara,
@@ -148,6 +150,8 @@ fun AcaraCard(
     id_acara: Int,
     nama_acara: String,
     deskripsi_acara: String,
+    tanggal_mulai: String,
+    tanggal_berakhir: String,
     id_klien: Int,
     id_lokasi: Int,
     status_acara:String,
@@ -206,7 +210,18 @@ fun AcaraCard(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.secondary
             )
+            Text(
+                text = "Tanggal Mulai: $tanggal_mulai",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary
+            )
 
+            // Tanggal Berakhir
+            Text(
+                text = "Tanggal Berakhir: $tanggal_berakhir",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.secondary
+            )
             Text(
                 text = "ID Klien: $id_klien",
                 style = MaterialTheme.typography.bodyMedium,

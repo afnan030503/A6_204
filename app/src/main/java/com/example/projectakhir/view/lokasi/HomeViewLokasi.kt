@@ -13,6 +13,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
@@ -137,22 +138,29 @@ fun LokasiCard(
     onDeleteClick: (Lokasi) -> Unit
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .padding(vertical = 8.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .shadow(4.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
                 .background(Color.Transparent),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = lokasi.nama_lokasi,
-                    style = MaterialTheme.typography.titleLarge,
-                )
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        )
+        {
+            Row(
+                modifier = Modifier.
+                fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically)
+            {
+                Text(text = "Id Lokasi: ${lokasi.id_lokasi}", style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = { onDeleteClick(lokasi) }) {
                     Icon(
@@ -160,7 +168,11 @@ fun LokasiCard(
                         contentDescription = null,
                     )
                 }
+
             }
+            Divider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f), thickness = 1.dp)
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(text = lokasi.nama_lokasi, style = MaterialTheme.typography.bodyMedium,)
             Text(text = "Alamat: ${lokasi.alamat_lokasi}", style = MaterialTheme.typography.bodyMedium)
             Text(text = "Kapasitas: ${lokasi.kapasitas}", style = MaterialTheme.typography.bodyMedium)
         }

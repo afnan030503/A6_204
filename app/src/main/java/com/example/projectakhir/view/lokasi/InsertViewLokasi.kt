@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.cmwidget.CustomTopAppBar
+import com.example.projectakhir.cmwidget.SectionCard
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.lokasi.InsertLokasiUiEvent
 import com.example.projectakhir.viewmodel.lokasi.InsertLokasiUiState
@@ -98,41 +99,44 @@ fun FormInputLokasi(
         modifier = Modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        OutlinedTextField(
-            value = insertUiEvent.nama_lokasi,
-            onValueChange = { onValueChange(insertUiEvent.copy(nama_lokasi = it)) },
-            label = { Text("Nama Lokasi") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = insertUiEvent.alamat_lokasi,
-            onValueChange = { onValueChange(insertUiEvent.copy(alamat_lokasi= it)) },
-            label = { Text("Alamat Lokasi") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled
-        )
-        OutlinedTextField(
-            value = insertUiEvent.kapasitas.toString(), // Konversi Int ke String
-            onValueChange = {
-                val kapasitasBaru = it.toIntOrNull() ?: 0 // Konversi String ke Int, default 0 jika null
-                onValueChange(insertUiEvent.copy(kapasitas = kapasitasBaru))
-            },
-            label = { Text("Kapasitas") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        if (enabled) {
-            Text(
-                text = "Isi Semua Data!",
+        SectionCard(title = "") {
+            OutlinedTextField(
+                value = insertUiEvent.nama_lokasi,
+                onValueChange = { onValueChange(insertUiEvent.copy(nama_lokasi = it)) },
+                label = { Text("Nama Lokasi") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+            OutlinedTextField(
+                value = insertUiEvent.alamat_lokasi,
+                onValueChange = { onValueChange(insertUiEvent.copy(alamat_lokasi = it)) },
+                label = { Text("Alamat Lokasi") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled
+            )
+            OutlinedTextField(
+                value = insertUiEvent.kapasitas.toString(), // Konversi Int ke String
+                onValueChange = {
+                    val kapasitasBaru =
+                        it.toIntOrNull() ?: 0 // Konversi String ke Int, default 0 jika null
+                    onValueChange(insertUiEvent.copy(kapasitas = kapasitasBaru))
+                },
+                label = { Text("Kapasitas") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+            if (enabled) {
+                Text(
+                    text = "Isi Semua Data!",
+                    modifier = Modifier.padding(12.dp)
+                )
+            }
+            Divider(
+                thickness = 8.dp,
                 modifier = Modifier.padding(12.dp)
             )
         }
-        Divider(
-            thickness = 8.dp,
-            modifier = Modifier.padding(12.dp)
-        )
     }
 }

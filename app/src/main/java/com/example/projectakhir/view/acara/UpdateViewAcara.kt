@@ -1,117 +1,106 @@
 package com.example.projectakhir.view.acara
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.* // Import semua dari jetpack compose runtime
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.cmwidget.CustomTopAppBar
-import com.example.projectakhir.cmwidget.DropDown
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.acara.UpdateViewModelAcara
 import com.example.projectakhir.viewmodel.acara.toAcara
+import com.example.projectakhir.viewmodel.klien.HomeKlienUiState
+import com.example.projectakhir.viewmodel.klien.HomeViewModelKlien
+import com.example.projectakhir.viewmodel.lokasi.HomeLokasiUiState
+import com.example.projectakhir.viewmodel.lokasi.HomeViewModelLokasi
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 object DestinasiUpdateAcara : DestinasiNavigasi {
-    override val route = "entry_klien"
-    override val titleRes = "Tambah Klien"
+    override val route = "update_acara"
+    const val ID_ACARA = "id_acara"
+    val routesWithArg = "$route/{$ID_ACARA}"
+    override val titleRes = "Update acara"
 }
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateViewAcara(
+    id_acara: Int,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UpdateViewModelAcara = viewModel()
+    viewModel: UpdateViewModelAcara = viewModel(factory = PenyediaViewModel.Factory),
+    klienViewModel: HomeViewModelKlien = viewModel(factory = PenyediaViewModel.Factory),
+    lokasiViewModel: HomeViewModelLokasi = viewModel(factory = PenyediaViewModel.Factory)
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    // Collect UI state dari ViewModel
-    val uiState by viewModel.uiState
-    val klienList by viewModel.klienList
-    val lokasiList by viewModel.lokasiList
+    // Ambil state dari ViewModel
+    val uiState = viewModel.uiState.value
 
-    // State untuk mengontrol dropdown
-    var klienExpanded by remember { mutableStateOf(false) }
-    var lokasiExpanded by remember { mutableStateOf(false) }
+    val klienUiState = klienViewModel.klienUiState
+    val selectedKlien by remember { mutableStateOf(klienViewModel.selectedKlien) }
+
+    val lokasiUiState =lokasiViewModel.lokasiUiState
+    val selectedLokasi by remember { mutableStateOf(lokasiViewModel.selectedLokasi) }
+
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             CustomTopAppBar(
-                title = "Update Acara",
+                title = DestinasiUpdateAcara.titleRes,
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = navigateBack
             )
         }
     ) { padding ->
+        val scrolState = rememberScrollState()
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp)
+                .verticalScroll(scrolState)
+                .padding(1.dp)
         ) {
-            // Input untuk nama acara
-            OutlinedTextField(
-                value = uiState.insertUiEvent.nama_acara,
-                onValueChange = { updatedValue ->
-                    viewModel.updateAcaraState(
-                        uiState.insertUiEvent.copy(nama_acara = updatedValue)
-                    )
+            EntryAcaraBody(
+                insertUiState = uiState,
+                klienUiState = klienUiState,
+                selectedKlien = selectedKlien,
+                onKlienSelected = {  klienViewModel.selectedKlien(it)  },
+                lokasiUiState = lokasiUiState,
+                selectedLokasi = selectedLokasi,
+                onLokasiSelected = {  lokasiViewModel.selectedLokasi(it)  },
+                onValueChange = {updatevalue ->
+                    viewModel.updateAcaraState(updatevalue)
                 },
-                label = { Text("Nama Acara") },
-                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-            )
-
-            // Dropdown untuk memilih klien
-            DropDown(
-                label = "Pilih Klien",
-                items = klienList.map { "${it.id_klien} - ${it.nama_klien}" },
-                selectedItem = klienList.find { it.id_klien == uiState.insertUiEvent.id_klien }
-                    ?.let { "${it.id_klien} - ${it.nama_klien}" }
-                    .orEmpty(),
-                onItemSelected = { selectedIndex ->
-                    val selectedKlien = klienList[selectedIndex]
-                    viewModel.updateAcaraState(uiState.insertUiEvent.copy(id_klien = selectedKlien.id_klien))
-                },
-                expanded = klienExpanded,
-                onExpandedChange = { klienExpanded = it }
-            )
-
-            // Dropdown untuk memilih lokasi
-            DropDown(
-                label = "Pilih Lokasi",
-                items = lokasiList.map { "${it.id_lokasi} - ${it.nama_lokasi}" },
-                selectedItem = lokasiList.find { it.id_lokasi == uiState.insertUiEvent.id_lokasi }
-                    ?.let { "${it.id_lokasi} - ${it.nama_lokasi}" }
-                    .orEmpty(),
-                onItemSelected = { selectedIndex ->
-                    val selectedLokasi = lokasiList[selectedIndex]
-                    viewModel.updateAcaraState(uiState.insertUiEvent.copy(id_lokasi = selectedLokasi.id_lokasi))
-                },
-                expanded = lokasiExpanded,
-                onExpandedChange = { lokasiExpanded = it }
-            )
-
-            // Tombol untuk menyimpan perubahan
-            Button(
-                onClick = {
+                onAcaraValueChange = viewModel::updateAcaraState,
+                onSaveClick = {
                     coroutineScope.launch {
-                        viewModel.updateAcara(viewModel.idAcara, uiState.insertUiEvent.toAcara())
-                        navigateBack() // Navigasi kembali setelah diperbarui
+                        val updatedAcara = uiState.insertUiEvent?.toAcara()?.copy(
+                            id_klien = selectedKlien,
+                            id_lokasi = selectedLokasi
+                        )
+                        updatedAcara?.let {
+                            viewModel.updateAcara(id_acara = id_acara, acara = it)
+                            navigateBack()
+                        }
                     }
-                },
-                modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
-            ) {
-                Text("Simpan")
-            }
+                }
+
+            )
         }
     }
 }

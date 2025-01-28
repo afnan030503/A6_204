@@ -21,6 +21,7 @@ class HomeViewModelLokasi(private val lks: LokasiRepository) : ViewModel() {
 
     // State untuk menyimpan status UI
     var lokasiUiState: HomeLokasiUiState by mutableStateOf(HomeLokasiUiState.Loading)
+    var selectedLokasi: Int by mutableStateOf(0)
         private set
 
     init {
@@ -58,5 +59,8 @@ class HomeViewModelLokasi(private val lks: LokasiRepository) : ViewModel() {
                 lokasiUiState = HomeLokasiUiState.Error
             }
         }
+    }
+    fun selectedLokasi(id_lokasi: Int) {
+        selectedLokasi = id_lokasi
     }
 }

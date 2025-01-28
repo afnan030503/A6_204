@@ -11,6 +11,8 @@ import com.example.projectakhir.model.Lokasi
 import com.example.projectakhir.repository.AcaraRepository
 import com.example.projectakhir.repository.KlienRepository
 import com.example.projectakhir.repository.LokasiRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class InsertViewModelAcara(
@@ -22,8 +24,11 @@ class InsertViewModelAcara(
     var uiState by mutableStateOf(InsertAcaraUiState())
         private set
 
-    val klienList = mutableStateOf<List<Klien>>(emptyList())
-    val lokasiList = mutableStateOf<List<Lokasi>>(emptyList())
+    private val _klienList = MutableStateFlow<List<Klien>>(emptyList())
+    val klienList: StateFlow<List<Klien>> = _klienList
+    private val _lokasiList = MutableStateFlow<List<Lokasi>>(emptyList())
+    val lokasiList : StateFlow<List<Lokasi>> = _lokasiList
+
 
     init {
         loadKlienList()
@@ -48,7 +53,7 @@ class InsertViewModelAcara(
         viewModelScope.launch {
             try {
                 val response = klienRepo.getKlien()
-                klienList.value = response.data ?: emptyList()
+                _klienList.value = response.data ?: emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -59,7 +64,7 @@ class InsertViewModelAcara(
         viewModelScope.launch {
             try {
                 val response = lokasiRepo.getLokasi()
-                lokasiList.value = response.data ?: emptyList()
+                _lokasiList.value = response.data ?: emptyList()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
