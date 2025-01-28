@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -38,7 +39,7 @@ fun MenuButton(
             .fillMaxWidth()
             .padding(19.dp)
             .background(
-                color = Color(0xFF14CFE5), // Warna biru solid
+                color = Color(0xFF585E70), // Warna biru solid
                 shape = RoundedCornerShape(10.dp) // Sudut lebih kecil
             )
             .padding(18.dp)
@@ -49,7 +50,8 @@ fun MenuButton(
                 Icon(
                     imageVector = Icons.Filled.Settings,
                     contentDescription = "Acara",
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
                 )
                 Text(text = "Acara", color = Color.White, fontWeight = FontWeight.Bold)
             }
@@ -61,7 +63,8 @@ fun MenuButton(
                 Icon(
                     imageVector = Icons.Filled.List,
                     contentDescription = "Klien",
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
                 )
                 Text(text = "Klien", color = Color.White, fontWeight = FontWeight.Bold)
             }
@@ -71,9 +74,10 @@ fun MenuButton(
         IconButton(onClick = onLokasiClick) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(
-                    imageVector = Icons.Filled.AccountBox,
+                    imageVector = Icons.Filled.LocationOn,
                     contentDescription = "Lokasi",
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
                 )
                 Text(text = "Lokasi", color = Color.White, fontWeight = FontWeight.Bold)
             }
@@ -84,7 +88,8 @@ fun MenuButton(
                 Icon(
                     imageVector = Icons.Filled.Person,
                     contentDescription = "Vendor",
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(50.dp)
                 )
                 Text(text = "Vendor", color = Color.White, fontWeight = FontWeight.Bold)
             }

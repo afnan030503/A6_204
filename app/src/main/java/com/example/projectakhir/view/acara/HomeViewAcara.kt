@@ -178,14 +178,14 @@ fun AcaraCard(
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .shadow(4.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .background(Color.Transparent),
+                .background(Color.Unspecified),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
@@ -211,8 +211,8 @@ fun AcaraCard(
 
             Text(
                 text = " $nama_acara",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
 
             )
@@ -221,36 +221,42 @@ fun AcaraCard(
             Text(
                 text = "Deskripsi: $deskripsi_acara",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = "Tanggal Mulai: $tanggal_mulai",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             // Tanggal Berakhir
             Text(
                 text = "Tanggal Berakhir: $tanggal_berakhir",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Text(
                 text = "ID Klien: $id_klien",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Text(
                 text = "ID Lokasi: $id_lokasi",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Text(
                 text = "Status: $status_acara",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.background,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
     }
