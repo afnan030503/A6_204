@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.cmwidget.CustomTopAppBar
+import com.example.projectakhir.cmwidget.SectionCard
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.klien.InsertKlienUiEvent
 import com.example.projectakhir.viewmodel.klien.InsertKlienUiState
@@ -103,31 +104,33 @@ fun FormInputKlien(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        OutlinedTextField(
-            value = insertUiEvent.nama_klien,
-            onValueChange = { onValueChange(insertUiEvent.copy(nama_klien = it)) },
-            label = { Text("Nama Klien") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = insertUiEvent.kontak_klien,
-            onValueChange = { onValueChange(insertUiEvent.copy(kontak_klien = it)) },
-            label = { Text("Kontak Klien") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        if (enabled) {
-            Text(
-                text = "Isi Semua Data!",
+        SectionCard(title = "") {
+            OutlinedTextField(
+                value = insertUiEvent.nama_klien,
+                onValueChange = { onValueChange(insertUiEvent.copy(nama_klien = it)) },
+                label = { Text("Nama Klien") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+            OutlinedTextField(
+                value = insertUiEvent.kontak_klien,
+                onValueChange = { onValueChange(insertUiEvent.copy(kontak_klien = it)) },
+                label = { Text("Kontak Klien") },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+            if (enabled) {
+                Text(
+                    text = "Isi Semua Data!",
+                    modifier = Modifier.padding(12.dp)
+                )
+            }
+            Divider(
+                thickness = 8.dp,
                 modifier = Modifier.padding(12.dp)
             )
         }
-        Divider(
-            thickness = 8.dp,
-            modifier = Modifier.padding(12.dp)
-        )
     }
 }
