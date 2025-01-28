@@ -1,9 +1,10 @@
 package com.example.projectakhir.dependenciesinjection
 
+
+
 import com.example.event.service.AcaraService
 import com.example.event.service.KlienService
 import com.example.event.service.LokasiService
-import com.example.event.service.VendorService
 import com.example.projectakhir.repository.AcaraRepository
 import com.example.projectakhir.repository.KlienRepository
 import com.example.projectakhir.repository.LokasiRepository
@@ -12,6 +13,7 @@ import com.example.projectakhir.repository.NetworkKlienRepository
 import com.example.projectakhir.repository.NetworkLokasiRepository
 import com.example.projectakhir.repository.NetworkVendorRepository
 import com.example.projectakhir.repository.VendorRepository
+import com.example.projectakhir.service.VendorService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -23,12 +25,11 @@ interface AppContainer {
     val lokasiRepository: LokasiRepository
     val klienRepository: KlienRepository
     val vendorRepository: VendorRepository
-
 }
 
 class AppContainerImpl : AppContainer {
 
-    private val baseUrl = "http://192.168.1.19:3000/api/"  // URL dasar API
+    private val baseUrl = "http://10.0.2.2:3000/api/"  // URL dasar API
 
     private val json = Json { ignoreUnknownKeys = true }
 
