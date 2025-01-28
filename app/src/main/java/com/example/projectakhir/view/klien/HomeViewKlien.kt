@@ -107,7 +107,6 @@ fun HomeScreenKlien(
         )
     }
 }
-
 @Composable
 fun HomeStatusKlien(
     homeUiState: HomeKlienUiState,
@@ -200,7 +199,7 @@ fun KlienCard(
             .padding(vertical = 8.dp)
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .shadow(4.dp, shape = MaterialTheme.shapes.medium),
+            .shadow(10.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
