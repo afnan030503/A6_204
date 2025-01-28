@@ -38,6 +38,10 @@ object DestinasiHomeAcara : DestinasiNavigasi {
 @Composable
 fun HomeScreenAcara(
     navigateToAddAcara: () -> Unit,
+    onAcaraClick: () -> Unit,
+    onKlienClick: () -> Unit,
+    onLokasiClick: () -> Unit,
+    onVendorClick: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
     viewModel: HomeViewModelAcara = viewModel(factory = PenyediaViewModel.Factory)
