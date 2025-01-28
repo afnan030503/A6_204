@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,12 +43,12 @@ fun CalendarDatePicker(
     OutlinedTextField(
         value = selectedDate,
         onValueChange = {}, // Read-only, no direct change
-        label = { Text(label) },
+        label = { Text(label, color = Color.White) },
         modifier = Modifier.fillMaxWidth(),
         readOnly = true,
         trailingIcon = {
             androidx.compose.material3.IconButton(onClick = { datePickerDialog.show() }) {
-                Text("Pilih")
+                Text("Pilih", color = Color.White)
             }
         }
     )

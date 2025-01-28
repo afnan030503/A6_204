@@ -37,7 +37,7 @@ fun DropDown(
             value = currentSelected.toString(),
             onValueChange = {},
             readOnly = true,
-            label = { Text(text = tittle) },
+            label = { Text(text = tittle, color = Color.White) },
             trailingIcon = {
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(

@@ -25,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -135,7 +136,11 @@ fun EntryAcaraBody(
         Button(
             onClick = onSaveClick,
             shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier.fillMaxWidth(),
+            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF585E70), // Warna silver
+                contentColor = Color.Black // Warna teks di tombol
+            )
         ) {
             Text(text = "Simpan")
         }
@@ -159,99 +164,100 @@ fun FormInputAcara(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Informasi Acara
-        OutlinedTextField(
-            value = insertUiEvent.nama_acara,
-            onValueChange = { onValueChange(insertUiEvent.copy(nama_acara = it)) },
-            label = { Text("Nama Acara") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = insertUiEvent.deskripsi_acara,
-            onValueChange = { onValueChange(insertUiEvent.copy(deskripsi_acara = it)) },
-            label = { Text("Deskripsi Acara") },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        CalendarDatePicker(
-            label = "Tanggal Mulai",
-            selectedDate = insertUiEvent.tanggal_mulai,
-            onDateSelected = { selectedDate ->
-                onValueChange(insertUiEvent.copy(tanggal_mulai = selectedDate))
-            }
-        )
+        SectionCard(title = "") {
+            OutlinedTextField(
+                value = insertUiEvent.nama_acara,
+                onValueChange = { onValueChange(insertUiEvent.copy(nama_acara = it)) },
+                label = { Text("Nama Acara", color = Color.White) },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true,
 
-        CalendarDatePicker(
-            label = "Tanggal Berakhir",
-            selectedDate = insertUiEvent.tanggal_berakhir,
-            onDateSelected = { selectedDate ->
-                onValueChange(insertUiEvent.copy(tanggal_berakhir = selectedDate))
-            }
-        )
+            )
+            OutlinedTextField(
+                value = insertUiEvent.deskripsi_acara,
+                onValueChange = { onValueChange(insertUiEvent.copy(deskripsi_acara = it)) },
+                label = { Text("Deskripsi Acara", color = Color.White) },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = enabled,
+                singleLine = true
+            )
+            CalendarDatePicker(
+                label = "Tanggal Mulai",
+                selectedDate = insertUiEvent.tanggal_mulai,
+                onDateSelected = { selectedDate ->
+                    onValueChange(insertUiEvent.copy(tanggal_mulai = selectedDate))
+                }
+            )
+
+            CalendarDatePicker(
+                label = "Tanggal Berakhir",
+                selectedDate = insertUiEvent.tanggal_berakhir,
+                onDateSelected = { selectedDate ->
+                    onValueChange(insertUiEvent.copy(tanggal_berakhir = selectedDate))
+                }
+            )
 
 
-        when (klienUiState) {
-            is HomeKlienUiState.Loading -> {
-                Text("Memuat data klien...")
-            }
+            when (klienUiState) {
+                is HomeKlienUiState.Loading -> {
+                    Text("Memuat data klien...")
+                }
 
-            is HomeKlienUiState.Error -> {
-                Text("Gagal memuat data klien.")
-            }
+                is HomeKlienUiState.Error -> {
+                    Text("Gagal memuat data klien.")
+                }
 
-            is HomeKlienUiState.Success -> {
-                DropDown(
-                    tittle = "Pilih Klien",
-                    options = klienUiState.klien.map { it.id_klien },
-                    selectedOption = selectedKlien,
-                    onOptionSelected = { id_klien ->
-                        onKlienSelected(id_klien)
-                        onValueChange(insertUiEvent.copy(id_klien = id_klien))
-                    }
-                )
-            }
-        }
-        when (lokasiUiState) {
-            is HomeLokasiUiState.Loading -> {
-                Text("Memuat data lokasi...")
-            }
-
-            is HomeLokasiUiState.Error -> {
-                Text("Gagal memuat data lokasi.")
-            }
-
-            is HomeLokasiUiState.Success -> {
-                DropDown(
-                    tittle = "Pilih Klien",
-                    options = lokasiUiState.lokasi.map { it.id_lokasi },
-                    selectedOption = selectedLokasi,
-                    onOptionSelected = { id_lokasi ->
-                        onLokasiSelected(id_lokasi)
-                        onValueChange(insertUiEvent.copy(id_lokasi = id_lokasi))
-                    }
-                )
-            }
-        }
-        // Status Acara
-        SectionCard(title = "Status Acara") {
-            val statusOptions = listOf("Direncanakan", "Berlangsung", "Selesai")
-            statusOptions.forEach { status ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButton(
-                        selected = insertUiEvent.status_acara == status,
-                        onClick = {
-                            onStatusChange(status)
+                is HomeKlienUiState.Success -> {
+                    DropDown(
+                        tittle = "Pilih Klien",
+                        options = klienUiState.klien.map { it.id_klien },
+                        selectedOption = selectedKlien,
+                        onOptionSelected = { id_klien ->
+                            onKlienSelected(id_klien)
+                            onValueChange(insertUiEvent.copy(id_klien = id_klien))
                         }
                     )
-                    Text(text = status, modifier = Modifier.padding(start = 8.dp))
+                }
+            }
+            when (lokasiUiState) {
+                is HomeLokasiUiState.Loading -> {
+                    Text("Memuat data lokasi...")
+                }
+
+                is HomeLokasiUiState.Error -> {
+                    Text("Gagal memuat data lokasi.")
+                }
+
+                is HomeLokasiUiState.Success -> {
+                    DropDown(
+                        tittle = "Pilih Klien",
+                        options = lokasiUiState.lokasi.map { it.id_lokasi },
+                        selectedOption = selectedLokasi,
+                        onOptionSelected = { id_lokasi ->
+                            onLokasiSelected(id_lokasi)
+                            onValueChange(insertUiEvent.copy(id_lokasi = id_lokasi))
+                        }
+                    )
                 }
             }
         }
+            // Status Acara
+            SectionCard(title = "Status Acara") {
+                val statusOptions = listOf("Direncanakan", "Berlangsung", "Selesai")
+                statusOptions.forEach { status ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RadioButton(
+                            selected = insertUiEvent.status_acara == status,
+                            onClick = {
+                                onStatusChange(status)
+                            }
+                        )
+                        Text(text = status, modifier = Modifier.padding(start = 9.dp))
+                    }
+                }
+            }
+
+        }
 
     }
-
-
-}
