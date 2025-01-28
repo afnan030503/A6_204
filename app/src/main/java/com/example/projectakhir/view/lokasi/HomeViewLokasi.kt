@@ -173,14 +173,14 @@ fun LokasiCard(
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .shadow(4.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .background(Color.Transparent),
+                .background(Color.Unspecified),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         )
         {
@@ -201,9 +201,11 @@ fun LokasiCard(
             }
             Divider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f), thickness = 1.dp)
             Spacer(modifier = Modifier.height(1.dp))
-            Text(text = lokasi.nama_lokasi, style = MaterialTheme.typography.bodyMedium,)
-            Text(text = "Alamat: ${lokasi.alamat_lokasi}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Kapasitas: ${lokasi.kapasitas}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = lokasi.nama_lokasi,    color = MaterialTheme.colorScheme.background,style = MaterialTheme.typography.bodyMedium,)
+            Text(text = "Alamat: ${lokasi.alamat_lokasi}",   color = MaterialTheme.colorScheme.background, style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Kapasitas: ${lokasi.kapasitas}",
+                color = MaterialTheme.colorScheme.background,
+                style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

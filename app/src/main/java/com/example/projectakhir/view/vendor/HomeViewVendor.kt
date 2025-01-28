@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -63,7 +64,7 @@ fun HomeScreenVendor(
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(18.dp)
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Vendor")
+                Icon(imageVector = Icons.Default.AddCircle, contentDescription = "Tambah Vendor")
             }
         },
         bottomBar = {
@@ -154,14 +155,14 @@ fun VendorCard(
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .shadow(20.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .background(Color.Transparent),
+                .background(Color.Unspecified),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -177,8 +178,8 @@ fun VendorCard(
                     )
                 }
             }
-            Text(text = "Kontak: ${vendor.kontak_vendor}", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Jenis Vendor: ${vendor.jenis_vendor}", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Kontak: ${vendor.kontak_vendor}",    color = MaterialTheme.colorScheme.background, style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Jenis Vendor: ${vendor.jenis_vendor}",   color = MaterialTheme.colorScheme.background, style = MaterialTheme.typography.bodyMedium)
         }
     }
 }

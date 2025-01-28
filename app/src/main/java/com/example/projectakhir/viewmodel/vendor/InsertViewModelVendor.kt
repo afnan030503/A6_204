@@ -21,12 +21,16 @@ class InsertViewModelVendor(private val vendorRepo: VendorRepository) : ViewMode
     suspend fun insertVendor() {
         viewModelScope.launch {
             try {
-                vendorRepo.insertVendor(uiState.insertUiEvent.toVendor())
+                val vendor = uiState.insertUiEvent.toVendor()
+                println("Mengirim data vendor: $vendor")
+                vendorRepo.insertVendor(vendor)
+                println("Data vendor berhasil dikirim.")
             } catch (e: Exception) {
-                e.printStackTrace()
+                println("Error saat mengirim data: ${e.localizedMessage}")
             }
         }
     }
+
 }
 
 

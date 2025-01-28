@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -48,7 +49,7 @@ fun MenuButton(
         IconButton(onClick = onAcaraClick) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(
-                    imageVector = Icons.Filled.Settings,
+                    imageVector = Icons.Filled.Star,
                     contentDescription = "Acara",
                     tint = Color.White,
                     modifier = Modifier.size(50.dp)
@@ -61,7 +62,7 @@ fun MenuButton(
         IconButton(onClick = onKlienClick) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(
-                    imageVector = Icons.Filled.List,
+                    imageVector = Icons.Filled.AccountBox,
                     contentDescription = "Klien",
                     tint = Color.White,
                     modifier = Modifier.size(50.dp)

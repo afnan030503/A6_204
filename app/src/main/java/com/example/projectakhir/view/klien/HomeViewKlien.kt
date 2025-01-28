@@ -201,14 +201,14 @@ fun KlienCard(
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .shadow(10.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary),
         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .background(Color.Transparent),
+                .background(Color.Unspecified),
             verticalArrangement = Arrangement.spacedBy(28.dp)
         ) {
             Row(
@@ -232,14 +232,17 @@ fun KlienCard(
             Spacer(modifier = Modifier.height(0.dp))
             Text(
                 text = klien.nama_klien,
-                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.background,
+                style = MaterialTheme.typography.titleLarge
             )
             Text(
                     text = "Nama Klien: ${klien.nama_klien}",
+                color = MaterialTheme.colorScheme.background,
             style = MaterialTheme.typography.titleMedium
             )
             Text(
                 text = klien.kontak_klien,
+                color = MaterialTheme.colorScheme.background,
                 style = MaterialTheme.typography.titleMedium
             )
         }

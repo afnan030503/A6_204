@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -84,7 +85,11 @@ fun EntryVendorBody(
         Button(
             onClick = onSaveClick,
             shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF585E70), // Warna silver
+                contentColor = Color.Black // Warna teks di tombol
+            )
         ) {
             Text(text = "Simpan")
         }
@@ -107,7 +112,7 @@ fun FormInputVendor(
             OutlinedTextField(
                 value = insertUiEvent.nama_vendor,
                 onValueChange = { onValueChange(insertUiEvent.copy(nama_vendor = it)) },
-                label = { Text("Nama Vendor") },
+                label = { Text("Nama Vendor", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = enabled,
                 singleLine = true
@@ -121,15 +126,16 @@ fun FormInputVendor(
                 }
             )
         }
+        SectionCard(title = "") {
             OutlinedTextField(
                 value = insertUiEvent.kontak_vendor,
                 onValueChange = { onValueChange(insertUiEvent.copy(kontak_vendor = it)) },
-                label = { Text("Kontak Vendor") },
+                label = { Text("Kontak Vendor", color = Color.White) },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = enabled,
                 singleLine = true
             )
-
+        }
         if (enabled) {
             Text(
                 text = "Isi Semua Data!",
