@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -35,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
@@ -180,9 +183,14 @@ fun KlienCard(
     onDeleteClick: (Klien) -> Unit = {}
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .padding(vertical = 8.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .shadow(4.dp, shape = MaterialTheme.shapes.medium),
         shape = MaterialTheme.shapes.medium,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
     ) {
         Column(
             modifier = Modifier
@@ -196,9 +204,10 @@ fun KlienCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = klien.nama_klien,
-                    style = MaterialTheme.typography.titleLarge,
+                    text = "ID Klien: ${klien.id_klien}",
+                    style = MaterialTheme.typography.titleMedium
                 )
+
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = { onDeleteClick(klien) }) {
                     Icon(
@@ -207,9 +216,11 @@ fun KlienCard(
                     )
                 }
             }
+            Divider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f), thickness = 1.dp)
+            Spacer(modifier = Modifier.height(0.dp))
             Text(
-                text = "ID Klien: ${klien.id_klien}",
-                style = MaterialTheme.typography.titleMedium
+                text = klien.nama_klien,
+                style = MaterialTheme.typography.titleLarge,
             )
             Text(
                     text = "Nama Klien: ${klien.nama_klien}",

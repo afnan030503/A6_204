@@ -23,6 +23,7 @@ class HomeViewModelKlien(private val kln: KlienRepository) : ViewModel() {
 
     // State untuk menyimpan status UI
     var klienUiState: HomeKlienUiState by mutableStateOf(HomeKlienUiState.Loading)
+    var selectedKlien: Int by mutableStateOf(0)
         private set
 
     init {
@@ -58,5 +59,8 @@ class HomeViewModelKlien(private val kln: KlienRepository) : ViewModel() {
                 klienUiState = HomeKlienUiState.Error
             }
         }
+    }
+    fun selectedKlien(id_klien: Int) {
+        selectedKlien = id_klien
     }
 }
