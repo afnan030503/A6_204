@@ -43,7 +43,6 @@ fun HomeScreenAcara(
     navigateToKlien: () -> Unit,
     navigateToLokasi: () -> Unit,
     navigateToVendor: () -> Unit,
-
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
     viewModel: HomeViewModelAcara = viewModel(factory = PenyediaViewModel.Factory)

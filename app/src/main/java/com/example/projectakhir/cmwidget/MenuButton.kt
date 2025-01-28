@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -35,18 +36,18 @@ fun MenuButton(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(19.dp)
             .background(
-                color = Color(0xFF3949AB), // Warna biru solid
-                shape = RoundedCornerShape(8.dp) // Sudut lebih kecil
+                color = Color(0xFF14CFE5), // Warna biru solid
+                shape = RoundedCornerShape(10.dp) // Sudut lebih kecil
             )
-            .padding(8.dp)
+            .padding(18.dp)
     ) {
         // Tombol Acara
         IconButton(onClick = onAcaraClick) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Icon(
-                    imageVector = Icons.Filled.MailOutline,
+                    imageVector = Icons.Filled.Settings,
                     contentDescription = "Acara",
                     tint = Color.White
                 )

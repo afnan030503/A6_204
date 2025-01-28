@@ -45,6 +45,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.R
 import com.example.projectakhir.cmwidget.CustomTopAppBar
+import com.example.projectakhir.cmwidget.MenuButton
 import com.example.projectakhir.model.Klien
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.viewmodel.klien.HomeKlienUiState
@@ -59,6 +60,10 @@ object DestinasiHomeKlien : DestinasiNavigasi {
 @Composable
 fun HomeScreenKlien(
     navigateToItemEntry: () -> Unit,
+    navigateToAcara: () -> Unit,
+    navigateToKlien: () -> Unit,
+    navigateToLokasi: () -> Unit,
+    navigateToVendor: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (String) -> Unit = {},
     viewModel: HomeViewModelKlien = viewModel(factory = PenyediaViewModel.Factory)
@@ -83,6 +88,14 @@ fun HomeScreenKlien(
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Klien")
             }
         },
+        bottomBar = {
+            MenuButton(
+                onAcaraClick = navigateToAcara,
+                onKlienClick = navigateToKlien,
+                onLokasiClick = navigateToLokasi,
+                onVendorClick = navigateToVendor,
+            )
+        }
     ) { innerPadding ->
         HomeStatusKlien(
             homeUiState = viewModel.klienUiState,

@@ -50,12 +50,14 @@ fun PengelolaHalaman(
 
         composable(DestinasiHomeAcara.route) {
             HomeScreenAcara(
-                navigateToAddAcara = {
-                    navController.navigate(DestinasiAcaraEntry.route)
-                },
+                navigateToAddAcara = { navController.navigate(DestinasiAcaraEntry.route) },
+                navigateToAcara = {navController.navigate(DestinasiHomeAcara.route)},
+                navigateToLokasi = {navController.navigate(DestinasiHomeLokasi.route)},
+                navigateToKlien = {navController.navigate(DestinasiHomeKlien.route)},
+                navigateToVendor = {navController.navigate(DestinasiHomeVendor.route)},
                 onDetailClick = { id_acara ->
                     navController.navigate("${DestinasiDetailAcara.route}/$id_acara") {
-                        popUpTo(DestinasiHomeLokasi.route) { inclusive = true }
+                        popUpTo(DestinasiHomeAcara.route) { inclusive = true }
                     }
                 }
             )
@@ -115,11 +117,11 @@ fun PengelolaHalaman(
         composable(DestinasiHomeKlien.route) {
             HomeScreenKlien(
                 navigateToItemEntry = { navController.navigate(DestinasiKlienEntry.route) },
-                onDetailClick = { id_klien ->
-                    navController.navigate("${DestinasiDetailKlien.route}/$id_klien") {
-                        popUpTo(DestinasiHomeKlien.route) { inclusive = true }
-                    }
-                }
+                navigateToAcara = {navController.navigate(DestinasiHomeAcara.route)},
+                navigateToLokasi = {navController.navigate(DestinasiHomeLokasi.route)},
+                navigateToKlien = {navController.navigate(DestinasiHomeKlien.route)},
+                navigateToVendor = {navController.navigate(DestinasiHomeVendor.route)},
+                onDetailClick = { id_klien -> navController.navigate("${DestinasiDetailKlien.route}/$id_klien") {popUpTo(DestinasiHomeKlien.route) { inclusive = true } } }
             )
         }
 
@@ -176,6 +178,10 @@ fun PengelolaHalaman(
         composable(DestinasiHomeLokasi.route) {
             HomeScreenLokasi(
                 navigateToAddLokasi = { navController.navigate(DestinasiLokasiEntry.route) },
+                navigateToAcara = {navController.navigate(DestinasiHomeAcara.route)},
+                navigateToLokasi = {navController.navigate(DestinasiHomeLokasi.route)},
+                navigateToKlien = {navController.navigate(DestinasiHomeKlien.route)},
+                navigateToVendor = {navController.navigate(DestinasiHomeVendor.route)},
                 onDetailClick = { id_lokasi ->
                     navController.navigate("${DestinasiDetailLokasi.route}/$id_lokasi") {
                         popUpTo(DestinasiHomeLokasi.route) { inclusive = true }
@@ -237,11 +243,12 @@ fun PengelolaHalaman(
         composable(DestinasiHomeVendor.route) {
             HomeScreenVendor(
                 navigateToAddVendor = { navController.navigate(DestinasiVendorEntry.route) },
-                onDetailClick = { id_vendor ->
-                    navController.navigate("${DestinasiDetailVendor.route}/$id_vendor") {
-                        popUpTo(DestinasiHomeVendor.route) { inclusive = true }
-                    }
-                }
+                onDetailClick = { id_vendor -> navController.navigate("${DestinasiDetailVendor.route}/$id_vendor") {
+                        popUpTo(DestinasiHomeVendor.route) { inclusive = true } } },
+                navigateToAcara = {navController.navigate(DestinasiHomeAcara.route)},
+                navigateToLokasi = {navController.navigate(DestinasiHomeLokasi.route)},
+                navigateToKlien = {navController.navigate(DestinasiHomeKlien.route)},
+                navigateToVendor = {navController.navigate(DestinasiHomeVendor.route)},
             )
         }
 

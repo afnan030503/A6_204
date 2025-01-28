@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projectakhir.PenyediaViewModel
 import com.example.projectakhir.cmwidget.CustomTopAppBar
+import com.example.projectakhir.cmwidget.MenuButton
 import com.example.projectakhir.model.Vendor
 import com.example.projectakhir.navigasi.DestinasiNavigasi
 import com.example.projectakhir.view.klien.OnError
@@ -36,6 +37,10 @@ object DestinasiHomeVendor : DestinasiNavigasi {
 @Composable
 fun HomeScreenVendor(
     navigateToAddVendor: () -> Unit,
+    navigateToAcara: () -> Unit,
+    navigateToKlien: () -> Unit,
+    navigateToLokasi: () -> Unit,
+    navigateToVendor: () -> Unit,
     modifier: Modifier = Modifier,
     onDetailClick: (Int) -> Unit = {},
     viewModel: HomeViewModelVendor = viewModel(factory = PenyediaViewModel.Factory)
@@ -61,6 +66,14 @@ fun HomeScreenVendor(
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Tambah Vendor")
             }
         },
+        bottomBar = {
+            MenuButton(
+                onAcaraClick = navigateToAcara,
+                onKlienClick = navigateToKlien,
+                onLokasiClick = navigateToLokasi,
+                onVendorClick = navigateToVendor,
+            )
+        }
     ) { innerPadding ->
         HomeStatusVendor(
             vendorUiState = viewModel.vendorUiState,
